@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.header {
+    padding: 20px 100px;
+}
+
+.header__logo {
+    font-size: 40px;
+    text-decoration: none;
+    color: #3434fb;
+}
+
+.title {
+    text-align: center;
+}
