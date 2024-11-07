@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+<title>{% block title %} Регистрация {% endblock %}</title>
+
+{% block content %}
+
+    <section class="register">
+        <h2 class="register__logo">Регистрация</h2>
+
+        <form method="post" enctype="multipart/form-data" class="register__form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="register__button">Зарегестрироваться</button>
+        </form>
+    </section>
+
+{% endblock %}

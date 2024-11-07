@@ -11,7 +11,13 @@
 <body>
     <header class="header">
         <div class="container">
-            <a class="header__logo" href="{% url 'index' %}">Design.pro</a>
+            <div class="header__inner">
+                <a class="header__logo" href="{% url 'index' %}">Design.pro</a>
+                <div class="header__buttons">
+                    <a href="{% url 'register' %}" class="header__button button">Регистрация</a>
+                    <a href="" class="header__button button">Вход</a>
+                </div>
+            </div>
         </div>
     </header>
     <main>
