@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, EmailValidator
+from datetime import date
 
 from .models import User
 
@@ -60,11 +61,22 @@ class RegisterForm(forms.ModelForm):
         widget=forms.PasswordInput
     )
 
+    date_of_birth = forms.DateField(
+        label="Дата рождения",
+        widget=forms.DateInput(attrs={'type': 'date'}),
+    )
+
     consent = forms.BooleanField(
         label="Согласие на обработку персональных данных",
         initial=True,
         error_messages={"required": "Необходимо согласие на обработку персональных данных!"}
     )
+
+    def clean_date_of_birth(self):
+        date_of_birth = self.cleaned_data.get("date_of_birth")
+        if date_of_birth and (date.today().year - date_of_birth.year < 18):
+            raise ValidationError("Вы должны быть совершеннолетними для регистрации.")
+        return date_of_birth
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
