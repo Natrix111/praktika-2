@@ -28,7 +28,9 @@
             <label>
             {{ form.image.label_tag }}
             {{ form.image }}
-            {{ form.image.errors }}
+            {% if form.image.errors %}
+                <li>{{ form.image.errors.0 }}</li>
+            {% endif %}
             </label>
         </div>
 

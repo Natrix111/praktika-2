@@ -15,6 +15,9 @@
                 <a class="header__logo" href="{% url 'index' %}">Design.pro</a>
                 <div class="header__buttons">
                     {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <a href="{% url 'admin:index' %}" class="header__button button">Админка</a>
+                        {% endif %}
                         <a href="{% url 'profile' %}" class="header__button button">Профиль</a>
                         <a href="{% url 'logout' %}" class="header__button button">Выйти</a>
                     {% else %}
