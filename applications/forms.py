@@ -139,7 +139,6 @@ class ApplicationForm(forms.ModelForm):
             if image.size > 2 * 1024 * 1024:
                 raise ValidationError("Размер изображения не должен превышать 2 Мб.")
 
-
         return image
 
     def save(self, commit=True):
