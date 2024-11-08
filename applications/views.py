@@ -36,3 +36,11 @@ class ApplicationCreate(LoginRequiredMixin, generic.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+class Profile(LoginRequiredMixin, generic.ListView):
+    model = Application
+    template_name = 'profile.html'
+    context_object_name = 'user_applications'
+
+    def get_queryset(self):
+        return Application.objects.filter(user=self.request.user).order_by('-created_at')
+
