@@ -231,7 +231,7 @@ img {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .profile__card {
@@ -304,6 +304,29 @@ img {
     text-align: center;
     background: #ff4141;
     color: #fff;
+}
+
+.profile__filter {
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.profile__label {
+    color: #000;
+    font-size: 18px;
+}
+
+.profile__select {
+    padding: 10px;
+}
+
+.profile_btn {
+    max-width: none;
+    border: none;
+    cursor: pointer;
 }
 
 .delete {

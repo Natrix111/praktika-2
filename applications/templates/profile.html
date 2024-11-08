@@ -14,6 +14,17 @@
 
     <h2 class="profile__title">Мои заявки</h2>
 
+    <form method="get" class="profile__filter">
+        <label for="status" class="profile__label">Фильтровать по статусу:</label>
+        <select name="status" id="status" class="profile__select">
+            <option value="" {% if status_filter == '' %}selected{% endif %}>Все</option>
+            <option value="new" {% if status_filter == 'new' %}selected{% endif %}>Новая</option>
+            <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>Принято в работу</option>
+            <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Выполнено</option>
+        </select>
+        <button type="submit" class="profile_btn button">Применить фильтр</button>
+    </form>
+
     {% if user_applications %}
         <div class="profile__applications">
             {% for application in user_applications %}
