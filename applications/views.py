@@ -5,12 +5,17 @@ from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Application
+
 from . forms import ApplicationForm
+from .models import Application
 
+class index(generic.ListView):
+    model = Application
+    template_name = 'index.html'
+    context_object_name = 'completed_applications'
 
-def index(request):
-    return render(request, 'index.html')
+    def get_queryset(self):
+        return Application.objects.filter(status='completed').order_by('-created_at')[:4]
 
 class Register(generic.CreateView):
     template_name = 'registration/register.html'
@@ -21,7 +26,7 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-class Application(LoginRequiredMixin, generic.CreateView):
+class ApplicationCreate(LoginRequiredMixin, generic.CreateView):
     model = Application
     form_class = ApplicationForm
     template_name = 'create_application.html'

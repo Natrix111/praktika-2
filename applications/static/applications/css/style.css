@@ -48,6 +48,10 @@ label {
     color: #fff;
 }
 
+section {
+    margin-bottom: 50px;
+}
+
 .button {
     text-decoration: none;
     max-width: 150px;
@@ -159,6 +163,40 @@ label {
     padding: 10px;
     border: none;
     cursor: pointer;
+}
+
+.completed__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.completed__card {
+    padding: 15px;
+    width: 100%;
+    max-width: 50%;
+    display: flex;
+    gap: 20px;
+    border: 2px solid gray;
+}
+
+.completed__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.completed__item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+img {
+    width: 200px;
 }
 
 
