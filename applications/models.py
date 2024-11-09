@@ -32,10 +32,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 def validate_image(image):
     valid_mime_types = ['image/jpeg', 'image/png', 'image/bmp']
-    mime_type = image.file.content_type
-    if mime_type not in valid_mime_types:
+    mime_type = getattr(image.file, 'content_type', None)
+    if mime_type and mime_type not in valid_mime_types:
         raise ValidationError("Формат файла должен быть: jpg, jpeg, png, bmp.")
 
     file_size = image.size
@@ -57,6 +58,14 @@ class Application(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    design_image = models.ImageField(upload_to='admin/', null=True, blank=True, validators=[validate_image])
+    comment = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return self.title
+
+    def is_status_change_allowed(self, new_status):
+        if self.status in ['in_progress', 'completed']:
+            return False
+        return True
 
