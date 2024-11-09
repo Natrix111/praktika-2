@@ -64,8 +64,4 @@ class Application(models.Model):
     def __str__(self):
         return self.title
 
-    def is_status_change_allowed(self, new_status):
-        if self.status in ['in_progress', 'completed']:
-            return False
-        return True
 

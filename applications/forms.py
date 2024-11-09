@@ -69,8 +69,8 @@ class RegisterForm(forms.ModelForm):
     place = forms.ModelChoiceField(
         queryset=Place.objects.all(),
         widget=forms.Select,
-        label="Выберите",
-        empty_label="Выберите категорию.",
+        label="Ваш район",
+        empty_label="Выберите район",
         required=True
     )
 
