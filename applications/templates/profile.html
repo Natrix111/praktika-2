@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="profile">
+    <h2 class="profile__title">Профиль пользователя</h2>
+
+    <div class="profile__info">
+        {% if user.is_superuser %}
+            <p>Вы администратор этого сайта!</p>
+        {% else %}
+            <p class="profile__field"><strong>Имя:</strong> {{ user.first_name }}</p>
+            <p class="profile__field"><strong>Фамилия:</strong> {{ user.last_name }}</p>
+            <p class="profile_field"><strong>Отчество:</strong> {{ user.patronymic }}</p>
+            <p class="profile__field"><strong>Email:</strong> {{ user.email }}</p>
+            <p class="profile__field"><strong>Дата рождения:</strong> {{ user.date_of_birth|date:"d.m.Y" }}</p>
+            <p class="profile__field"><strong>Ваш район:</strong> {{ user.place }}</p>
+        {% endif %}
+    </div>
+
+    <h2 class="profile__title">Мои заявки</h2>
+
+    <form method="get" class="profile__filter">
+        <label for="status" class="profile__label">Фильтровать по статусу:</label>
+        <select name="status" id="status" class="profile__select">
+            <option value="" {% if status_filter == '' %}selected{% endif %}>Все</option>
+            <option value="new" {% if status_filter == 'new' %}selected{% endif %}>Новая</option>
+            <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>Принято в работу</option>
+            <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Выполнено</option>
+        </select>
+        <button type="submit" class="profile_btn button">Применить фильтр</button>
+    </form>
+
+    {% if user_applications %}
+        <div class="profile__applications">
+            {% for application in user_applications %}
+                <div class="profile__card">
+                    <div class="profile__header">
+                        <h3 class="profile__heading">{{ application.title }}</h3>
+                        <p class="card__time">{{ application.created_at|date:"d.m.Y H:i" }}</p>
+                    </div>
+                    <div class="profile__body">
+                        <p class="card__description"><strong>Описание:</strong> {{ application.description }}</p>
+                        <p class="card__category"><strong>Категория:</strong> {{ application.category }}</p>
+                        <p class="card__status"><strong>Статус:</strong> {{ application.get_status_display }}</p>
+                    </div>
+                    <div class="profile__buttons">
+                        <a href="{% url 'delete_application' application.id %}" class="profile__delete">Удалить</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <p class="profile__message">У вас пока нет заявок!</p>
+    {% endif %}
+    <a href="{% url 'create_application' %}" class="profile__create">Создать заявку</a>
+</section>
+{% endblock %}
