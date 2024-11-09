@@ -1,8 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
 
-# Create your models here.
-=======
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 
@@ -54,7 +51,7 @@ class Application(models.Model):
 
     title = models.CharField(verbose_name="Название",max_length=200)
     description = models.TextField(max_length=300)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='applications/', validators=[validate_image])
     status = models.CharField(choices=STATUS_CHOICES, default='new', max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -63,6 +60,3 @@ class Application(models.Model):
     def __str__(self):
         return self.title
 
-
-
->>>>>>> origin/task-2.2

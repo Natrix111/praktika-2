@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 
-# Create your views here.
-=======
 from django.shortcuts import render, redirect
 from django.views import generic
 from .forms import RegisterForm
@@ -66,4 +63,4 @@ class ApplicationDelete(generic.DeleteView):
     model = Application
     template_name = 'delete_application.html'
     success_url = reverse_lazy('profile')
->>>>>>> origin/task-2.2
+
