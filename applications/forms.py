@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, EmailValidator
 from datetime import date
 
-from .models import User, Application, Category
+from .models import User, Application, Category, Place
 
 
 class RegisterForm(forms.ModelForm):
@@ -66,6 +66,14 @@ class RegisterForm(forms.ModelForm):
         widget=forms.DateInput(attrs={'type': 'date'}),
     )
 
+    place = forms.ModelChoiceField(
+        queryset=Place.objects.all(),
+        widget=forms.Select,
+        label="Выберите",
+        empty_label="Выберите категорию.",
+        required=True
+    )
+
     consent = forms.BooleanField(
         label="Согласие на обработку персональных данных",
         initial=True,
@@ -109,7 +117,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'patronymic', 'username', 'email')
+        fields = ('first_name', 'last_name', 'patronymic', 'username', 'email', 'date_of_birth', 'place')
 
 class ApplicationForm(forms.ModelForm):
     title = forms.CharField(

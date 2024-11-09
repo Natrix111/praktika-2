@@ -13,6 +13,7 @@
             <p class="profile_field"><strong>Отчество:</strong> {{ user.patronymic }}</p>
             <p class="profile__field"><strong>Email:</strong> {{ user.email }}</p>
             <p class="profile__field"><strong>Дата рождения:</strong> {{ user.date_of_birth|date:"d.m.Y" }}</p>
+            <p class="profile__field"><strong>Ваш район:</strong> {{ user.place }}</p>
         {% endif %}
     </div>
 
