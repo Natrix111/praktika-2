@@ -14,6 +14,7 @@
             <p class="profile__field"><strong>Email:</strong> {{ user.email }}</p>
             <p class="profile__field"><strong>Дата рождения:</strong> {{ user.date_of_birth|date:"d.m.Y" }}</p>
             <p class="profile__field"><strong>Ваш район:</strong> {{ user.place }}</p>
+            <a href="{% url 'change_place' %}" class="profile__link button">Изменить район</a>
         {% endif %}
     </div>
 

@@ -1,3 +1,5 @@
+from pyexpat.errors import messages
+
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
@@ -9,7 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from . forms import ApplicationForm
-from .models import Application
+from .models import Application, User
+
 
 class index(generic.ListView):
     model = Application
@@ -63,4 +66,26 @@ class ApplicationDelete(generic.DeleteView):
     model = Application
     template_name = 'delete_application.html'
     success_url = reverse_lazy('profile')
+
+class UpdatePlaceView(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    fields = ['place']
+    template_name = 'change_place.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        applications = Application.objects.filter(user=self.request.user)
+
+        if applications.filter(status__in=['new', 'in_progress']).exists():
+            form.add_error('place', 'Вы можете изменить район только если все ваши заявки находятся в статусе "Выполнено".')
+            return self.form_invalid(form)
+
+        return super().form_valid(form)
+
+
+
+
 

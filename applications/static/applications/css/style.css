@@ -222,9 +222,20 @@ img {
     gap: 15px;
 }
 
+.profile-update {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .profile__field {
     font-size: 16px;
     margin: 5px 0;
+}
+
+.profile__link {
+    max-width: 250px;
+    text-align: center;
 }
 
 .profile__applications {
@@ -284,6 +295,19 @@ img {
     text-align: center;
     font-size: 16px;
     color: #999;
+}
+
+.profile-update__button {
+    width: 100%;
+    max-width: none;
+    background: #6ab500;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 30px;
+    display: inline-block;
+    text-align: center;
+    border: none;
 }
 
 .profile__create {
