@@ -1,8 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
 
-# Create your models here.
-=======
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 
@@ -35,10 +32,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 def validate_image(image):
     valid_mime_types = ['image/jpeg', 'image/png', 'image/bmp']
-    mime_type = image.file.content_type
-    if mime_type not in valid_mime_types:
+    mime_type = getattr(image.file, 'content_type', None)
+    if mime_type and mime_type not in valid_mime_types:
         raise ValidationError("Формат файла должен быть: jpg, jpeg, png, bmp.")
 
     file_size = image.size
@@ -54,15 +52,16 @@ class Application(models.Model):
 
     title = models.CharField(verbose_name="Название",max_length=200)
     description = models.TextField(max_length=300)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     image = models.ImageField(upload_to='applications/', validators=[validate_image])
     status = models.CharField(choices=STATUS_CHOICES, default='new', max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    design_image = models.ImageField(upload_to='admin/', null=True, blank=True, validators=[validate_image])
+    comment = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return self.title
 
 
-
->>>>>>> origin/task-2.2
